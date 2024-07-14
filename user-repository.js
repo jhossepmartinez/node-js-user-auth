@@ -11,7 +11,7 @@ const User = Schema('User', {
 });
 
 export class UserRepository {
-    static create({ username, password }) {
+    static async create({ username, password }) {
         // Validate username and password
         if (typeof username !== 'string') throw new Error('username must be a string');
         if (username.length < 3) throw new Error('username must have at least 3 characters');
@@ -22,7 +22,7 @@ export class UserRepository {
         const user = User.findOne({ username });
         if (user) throw new Error('username already exists');
 
-        const hashedPassword = bcrypt.hashSync(password, SALT_ROUNDS);
+        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
 
         const id = crypto.randomUUID();
