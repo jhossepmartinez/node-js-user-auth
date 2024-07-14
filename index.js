@@ -9,8 +9,16 @@ app.get('/', (req, res) => {
     res.send('Hello WOWOWO!');
 });
 
-app.post('/login', (req, res) => {
-    res.json({ user: 'Jhossep' });
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    try {
+        const user = await UserRepository.login({ username, password });
+        res.send({ user });
+
+    } catch (error) {
+        res.status(401).send(error.message);
+    }
+
 });
 
 app.post('/register', async (req, res) => {

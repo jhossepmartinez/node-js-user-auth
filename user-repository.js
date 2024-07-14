@@ -32,7 +32,21 @@ export class UserRepository {
         return id;
     }
 
-    static login({ username, password }) { }
+    static async login({ username, password }) {
+        Validation.username(username);
+        Validation.password(password);
+
+        const user = User.findOne({ username });
+
+        if (!user) throw new Error('username does not exist');
+
+        const isValid = await bcrypt.compare(password, user.password);
+        if (!isValid) throw new Error('password is not valid');
+
+        const { password: _, ...publicUser } = user;
+
+        return publicUser;
+    }
 }
 
 class Validation {
