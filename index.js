@@ -1,18 +1,21 @@
-import express from "express"
-import {PORT} from "./config.js"
+import express from 'express';
+import {PORT} from './config.js';
 
-const app = express()
+const app = express();
 
-app.get("/", (req, res) => {
-    res.send("Hello WOWOWO!")
-})
+app.get('/', (req, res) => {
+    res.send('Hello WOWOWO!');
+});
 
-app.post("/login", (req, res) => {})
-app.post("/register", (req, res) => {})
-app.post("/logout", (req, res) => {})
+app.post('/login', (req, res) => {
+    res.json({ user: 'Jhossep'});
+});
+app.post('/register', (req, res) => {});
+app.post('/logout', (req, res) => {});
 
-app.post("/protected", (req, res) => {})
+app.post('/protected', (req, res) => {});
 
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`)
-})
+    console.log(`Server running on port ${PORT}`);
+});
+

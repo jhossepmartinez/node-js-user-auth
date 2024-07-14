@@ -1,9 +1,11 @@
 {
   "dependencies": {
+    "db-local": "^3.1.0",
     "express": "^4.19.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.7.0",
+    "@stylistic/eslint-plugin": "^2.3.0",
     "eslint": "^9.7.0",
     "globals": "^15.8.0",
     "standard": "^17.1.0"
