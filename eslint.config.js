@@ -14,7 +14,9 @@ export default [
             'no-unused-vars': 'warn',
             'no-undef': 'warn',
             'semi': 'warn',
-            '@stylistic/js/quotes': ['error', 'single']
+            '@stylistic/js/quotes': ['error', 'single'],
+            '@stylistic/js/object-curly-spacing': ['error', 'always']
+
         },
         languageOptions: {
             globals: {
