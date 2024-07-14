@@ -1,6 +1,8 @@
 import DBLocal from 'db-local';
 const { Schema } = new DBLocal({ path: './db' });
 import crypto from 'crypto';
+import bcrypt from 'bcrypt';
+import { SALT_ROUNDS } from './config.js';
 
 const User = Schema('User', {
     _id: { type: String, required: true },
@@ -9,7 +11,7 @@ const User = Schema('User', {
 });
 
 export class UserRepository {
-    static create ({ username, password }) {
+    static create({ username, password }) {
         // Validate username and password
         if (typeof username !== 'string') throw new Error('username must be a string');
         if (username.length < 3) throw new Error('username must have at least 3 characters');
@@ -19,17 +21,20 @@ export class UserRepository {
 
         const user = User.findOne({ username });
         if (user) throw new Error('username already exists');
-        
+
+        const hashedPassword = bcrypt.hashSync(password, SALT_ROUNDS);
+
+
         const id = crypto.randomUUID();
 
         User.create({
             _id: id,
             username,
-            password
+            password: hashedPassword
         }).save();
 
         return id;
     }
 
-    static login ({ username, password }) {}
+    static login({ username, password }) { }
 }
